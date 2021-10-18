@@ -1,11 +1,17 @@
-
+import './styles/main.scss';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>Welcome to AllShop</h1>
-    </div>
+    <>
+      <Navbar />
+      <main class='py-3 container'>
+        <h2>Welcome to AllShop</h2>
+      </main>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
