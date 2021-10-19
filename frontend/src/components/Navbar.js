@@ -1,26 +1,26 @@
 import React from 'react';
 
 const Navbar = () => {
-  const signedIn = true;
+  const signedIn = false;
   return (
-    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-      <div class='container-fluid'>
-        <a class='navbar-brand' href='/'>
+    <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+      <div className='container-fluid'>
+        <a className='navbar-brand px-1' href='/'>
           AllShop
         </a>
-        <form class='d-flex col-4'>
+        <form className='d-flex col-4'>
           <input
-            class='form-control me-2'
+            className='form-control me-2'
             type='search'
             placeholder='Search for the best products in the world'
             aria-label='Search'
           />
-          <button class='btn btn-outline-success' type='submit'>
+          <button className='btn btn-outline-success' type='submit'>
             Search
           </button>
         </form>
         <button
-          class='navbar-toggler'
+          className='navbar-toggler'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#navbarSupportedContent'
@@ -28,29 +28,29 @@ const Navbar = () => {
           aria-expanded='false'
           aria-label='Toggle navigation'
         >
-          <span class='navbar-toggler-icon'></span>
+          <span className='navbar-toggler-icon'></span>
         </button>
-        <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-          <ul class='navbar-nav ml-auto'>
+        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+          <ul className='navbar-nav ml-auto'>
             {signedIn ? (
-              <li class='nav-item'>
-                <a class='nav-link active' aria-current='page' href='/myaccount'>
-                  <i class='fas fa-user'></i>
-                  My account
+              <li className='nav-item'>
+                <a className='nav-link active' aria-current='page' href='/myaccount'>
+                  <i className='fas fa-user'></i>
+                  {` My account`}
                 </a>
               </li>
             ) : (
-              <li class='nav-item'>
-                <a class='nav-link active' aria-current='page' href='/signin'>
-                  <i class='fas fa-user'></i>
-                  SignIn
+              <li className='nav-item px-1'>
+                <a className='nav-link active' aria-current='page' href='/signin'>
+                  <i className='fas fa-user'></i>
+                  {` SignIn`}
                 </a>
               </li>
             )}
-            <li class='nav-item'>
-              <a class='nav-link active' aria-current='page' href='/cart'>
-                <i class='fas fa-shopping-cart'></i>
-                Cart
+            <li className='nav-item px-1'>
+              <a className='nav-link active' aria-current='page' href='/cart'>
+                <i className='fas fa-shopping-cart'></i>
+                {` Cart`}
               </a>
             </li>
           </ul>
