@@ -39,7 +39,7 @@ const products = [
   },
   {
     _id: '4',
-    name: 'RAZER Naga Pro',
+    name: 'RAZER Naga Pro Mouse',
     image: '/images/mouse.jpg',
     description:
       'Why specialize in one genre, when you can rule them all? Adapt to every game with the Razer Naga Pro',
@@ -65,7 +65,7 @@ const products = [
   },
   {
     _id: '6',
-    name: 'Razer Huntsman V2 Analog',
+    name: 'Razer Huntsman V2 Analog Keyboard',
     image: '/images/keyboard.jpg',
     description:
       'Enter a higher dimension of control with the Razer Huntsman V2 Analog—our first analog optical gaming keyboard. Armed with every feature you’d expect from a top-of-the-line design, you’ll want for nothing in your pursuit of victory.',
@@ -91,7 +91,7 @@ const products = [
   },
   {
     _id: '8',
-    name: 'OLED Smart LG 65A13LA 4k',
+    name: 'OLED Smart LG 65A13LA 4k TV',
     image: '/images/tv.jpg',
     description:
       'Slim, elegant and prodigiously talented, the LG OLED65A13LA is the best 4K TV you can buy in 2021',
