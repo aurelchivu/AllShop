@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const signedIn = false;
   return (
-    <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+    <nav className='navbar sticky-top navbar-expand-lg navbar-light bg-light'>
       <div className='container-fluid'>
-        <a className='navbar-brand px-1' href='/'>
+        <Link to='/' className='navbar-brand px-1'>
           AllShop
-        </a>
+        </Link>
         <form className='d-flex col-4'>
           <input
             className='form-control me-2'
@@ -34,24 +35,32 @@ const Navbar = () => {
           <ul className='navbar-nav ml-auto'>
             {signedIn ? (
               <li className='nav-item'>
-                <a className='nav-link active' aria-current='page' href='/myaccount'>
+                <Link
+                  to='/myaccount'
+                  className='nav-link active'
+                  aria-current='page'
+                >
                   <i className='fas fa-user'></i>
                   {` My account`}
-                </a>
+                </Link>
               </li>
             ) : (
               <li className='nav-item px-1'>
-                <a className='nav-link active' aria-current='page' href='/signin'>
+                <Link
+                  to='/signin'
+                  className='nav-link active'
+                  aria-current='page'
+                >
                   <i className='fas fa-user'></i>
                   {` SignIn`}
-                </a>
+                </Link>
               </li>
             )}
             <li className='nav-item px-1'>
-              <a className='nav-link active' aria-current='page' href='/cart'>
+              <Link to='/cart' className='nav-link active' aria-current='page'>
                 <i className='fas fa-shopping-cart'></i>
                 {` Cart`}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
