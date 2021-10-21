@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Rating from '../components/Rating';
-import products from '../products';
 
 const ProductScreen = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/v1/products/${match.params.id}`);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, []);
+
   return (
     <>
       <Link to='/' className='btn btn-outline-success my-3'>
@@ -18,6 +27,7 @@ const ProductScreen = ({ match }) => {
             className='img-fluid'
           ></img>
         </div>
+
         <div className='col-md-3'>
           <h3>{product.name}</h3>
           <Rating
@@ -25,8 +35,8 @@ const ProductScreen = ({ match }) => {
             text={` ${product.numReviews} reviews`}
           />
           <h4 className='card-text m-2'>{product.price} €</h4>
-          <p className='m-1 p-1'>{product.description}</p>
         </div>
+
         <div className='col-md-3'>
           <div className='card-body'>
             <div className='list-group' variant='flush'>
@@ -58,6 +68,10 @@ const ProductScreen = ({ match }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <h3 className='m-3 p-3'>Description</h3>
+          <h5 className='m-3 p-3'>{product.description}</h5>
         </div>
       </div>
     </>
