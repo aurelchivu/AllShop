@@ -12,7 +12,9 @@ dotenv.config();
 // Test DB
 try {
   await db.authenticate();
-  console.log('Connection to database has been established successfully...'.yellow.bold);
+  console.log(
+    'Connection to database has been established successfully...'.yellow.bold
+  );
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }
