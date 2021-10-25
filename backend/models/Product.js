@@ -55,7 +55,7 @@ export const Product = db.define('Product', {
     defaultValue: 0,
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
     validate: {
       notEmpty: true,
