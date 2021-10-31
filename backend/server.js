@@ -3,29 +3,40 @@ import colors from 'colors';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import products1 from './data/products1.js';
+import products from './data/products.js';
+import users from './data/users.js';
 import db from './config/database.js';
 import { Product } from './models/Product.js';
+import { User } from './models/User.js';
 
 // Load environment variables
 dotenv.config();
 
 // Test DB
 try {
-  await db.sync();
-  // products1.map((product) => {
-  //   Product.create({
-  //     name: product.name,
-  //     image: product.image,
-  //     brand: product.brand,
-  //     category: product.category,
-  //     description: product.description,
-  //     rating: product.rating,
-  //     numReviews: product.numReviews,
-  //     price: product.price,
-  //     countInStock: product.countInStock,
-  //   });
-  // });
+  await db.sync({ force: true });
+  products.map((product) => {
+    Product.create({
+      name: product.name,
+      image: product.image,
+      brand: product.brand,
+      category: product.category,
+      description: product.description,
+      rating: product.rating,
+      numReviews: product.numReviews,
+      price: product.price,
+      countInStock: product.countInStock,
+    });
+  });
+
+  users.map((user) => {
+    User.create({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      isAdmin: user.isAdmin,
+    });
+  });
 
   console.log(
     'Connection to database has been established successfully...'.yellow.bold

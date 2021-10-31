@@ -23,7 +23,7 @@ export const ShippingAddress = db.define('ShippingAddress', {
       notEmpty: true,
     },
   },
-  Country: {
+  country: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {

@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import db from '../config/database.js';
 import { Review } from './Review.js';
+import { OrderItem } from './OrderItem.js';
 
 export const Product = db.define('Product', {
   name: {
@@ -70,5 +71,5 @@ export const Product = db.define('Product', {
   },
 });
 
-Product.hasMany(Review, { as: 'AllReviews' });
-Product.sync();
+Product.hasMany(Review, { as: 'allReviews' });
+Product.hasOne(OrderItem);

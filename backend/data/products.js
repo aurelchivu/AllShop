@@ -1,6 +1,5 @@
 const products1 = [
   {
-    id: '1',
     name: 'iPhone 13 Pro 256GB Memory',
     image: '/images/iphone.jpg',
     description: 'The iPhone 13 Pro is Apple\'s smaller premium iPhone with a 6.1 inch screen size and for the first time in an iPhone, it comes with a 120Hz ProMotion display for super smooth scrolling. The list of innovations includes a more capable triple camera setup, with a wide, ultra-wide and zoom cameras, as well as a LiDAR scanner.',
@@ -12,7 +11,6 @@ const products1 = [
     numReviews: 8,
   },
   {
-    id: '2',
     name: 'CANON EOS 6D Mark II, 26.2 Mp, Wi-Fi, Bluetooth',
     image: '/images/camera.jpg',
     description:
@@ -25,7 +23,6 @@ const products1 = [
     numReviews: 12,
   },
   {
-    id: '3',
     name: 'Microsoft Xbox Series S 512GB',
     image: '/images/xbox.jpg',
     description:
@@ -38,7 +35,6 @@ const products1 = [
     numReviews: 12,
   },
   {
-    id: '4',
     name: 'RAZER Naga Pro Mouse',
     image: '/images/mouse.jpg',
     description:
@@ -51,7 +47,6 @@ const products1 = [
     numReviews: 10,
   },
   {
-    id: '5',
     name: 'APPLE Watch Series 7, GPS, 41mm Midnight Aluminium Case',
     image: '/images/smartwatch.jpg',
     description:
@@ -64,7 +59,6 @@ const products1 = [
     numReviews: 12,
   },
   {
-    id: '6',
     name: 'Razer Huntsman V2 Analog Keyboard',
     image: '/images/keyboard.jpg',
     description:
@@ -77,7 +71,6 @@ const products1 = [
     numReviews: 12,
   },
   {
-    id: '7',
     name: 'APPLE AirPods Pro',
     image: '/images/airpods.jpg',
     description:
@@ -90,7 +83,6 @@ const products1 = [
     numReviews: 12,
   },
   {
-    id: '8',
     name: 'OLED Smart LG 65A13LA 4k TV',
     image: '/images/tv.jpg',
     description:

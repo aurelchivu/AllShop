@@ -24,5 +24,3 @@ export const Review = db.define('Review', {
     },
   },
 });
-
-Review.sync();

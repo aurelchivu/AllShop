@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
 import db from '../config/database.js';
 import { OrderItem } from './OrderItem.js';
-import { ShippingAddress } from './ShippingAddress.js';
 import { PaymentResult } from './PaymentResult.js';
+import { ShippingAddress } from './ShippingAddress.js';
 
 export const Order = db.define('Order', {
   paymentMethod: {
@@ -55,7 +55,7 @@ export const Order = db.define('Order', {
   },
 });
 
-Order.hasMany(OrderItem, { as: 'AllItems' });
+Order.hasMany(OrderItem, { as: 'allItems' });
 Order.hasOne(ShippingAddress);
 Order.hasOne(PaymentResult);
-Order.sync();
+

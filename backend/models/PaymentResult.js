@@ -25,4 +25,3 @@ export const PaymentResult = db.define('PaymentResult', {
   },
 });
 
-PaymentResult.sync();

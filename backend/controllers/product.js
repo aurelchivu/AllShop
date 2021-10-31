@@ -19,7 +19,6 @@ export const createProduct = asyncHandler(async (req, res) => {
 // @access    Public
 export const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.findAll();
-  console.log(req);
 
   res.status(200).json({
     success: true,

@@ -33,6 +33,3 @@ export const OrderItem = db.define('OrderItem', {
     },
   },
 });
-
-OrderItem.hasOne(Product);
-OrderItem.sync();
