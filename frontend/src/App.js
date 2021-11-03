@@ -1,5 +1,5 @@
 import './styles/main.scss';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import HomeScreen from './screens/HomeScreen';
@@ -10,8 +10,11 @@ const App = () => {
     <Router>
       <Navbar />
       <main className='py-3 container'>
-        <Route exact path='/' component={HomeScreen} />
-        <Route path='/product/:id' component={ProductScreen} />
+        <Switch>
+          <Route exact path='/' component={HomeScreen} />
+          <Route path='/products/:id' component={ProductScreen} />
+          <Route path='*' component={() => '404 Not found.'} />
+        </Switch>
       </main>
       <Footer />
     </Router>

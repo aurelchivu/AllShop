@@ -58,4 +58,3 @@ export const Order = db.define('Order', {
 Order.hasMany(OrderItem, { as: 'allItems' });
 Order.hasOne(ShippingAddress);
 Order.hasOne(PaymentResult);
-

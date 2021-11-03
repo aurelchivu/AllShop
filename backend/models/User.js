@@ -51,3 +51,4 @@ export const User = db.define(
 
 User.hasMany(Order, { as: 'allOrders' });
 User.hasMany(Review, { as: 'allReviews' });
+

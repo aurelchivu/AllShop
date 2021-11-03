@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Product from '../components/Product';
+import { useGetAllProductsQuery } from '../redux/features/products';
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
-  const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('http://localhost:5000/api/products');
-      setProducts(data.data);
-      setSuccess(data.success);
-    };
-    fetchProducts();
-  }, []);
+  const { data: { data } = [], isFetching } = useGetAllProductsQuery();
 
   return (
     <>
       <h2>Latest Products</h2>
       <div className='row'>
-        {success ? (
-          products.map((product) => (
+        {isFetching ? (
+          <h2>Loading...</h2>
+        ) : (
+          data?.map((product) => (
             <div
               key={product.id}
               className='col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch'
@@ -28,8 +20,6 @@ const HomeScreen = () => {
               <Product product={product} />
             </div>
           ))
-        ) : (
-          <h5>Loading...</h5>
         )}
       </div>
     </>
