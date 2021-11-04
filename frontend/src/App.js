@@ -1,7 +1,8 @@
 import './styles/main.scss';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 
@@ -10,11 +11,12 @@ const App = () => {
     <Router>
       <Navbar />
       <main className='py-3 container'>
-        <Switch>
-          <Route exact path='/' component={HomeScreen} />
-          <Route path='/products/:id' component={ProductScreen} />
-          <Route path='*' component={() => '404 Not found.'} />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<HomeScreen />} />
+          <Route path='/products/:id' element={<ProductScreen />} />
+          <Route path='/cart/*' element={<CartScreen />} />
+          <Route path='*' element={<h3>404 Not found.</h3>} />
+        </Routes>
       </main>
       <Footer />
     </Router>

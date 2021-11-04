@@ -1,12 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { useGetProductByIdQuery } from '../redux/features/products';
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = () => {
+
+  const params = useParams();
+  let navigate = useNavigate();
   const { data: { data } = {}, isFetching } = useGetProductByIdQuery(
-    match.params.id
+    params.id
   );
+
+  const [qty, setQty] = useState(1);
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?qty=${qty}`);
+  };
 
   return (
     <>
@@ -56,8 +65,31 @@ const ProductScreen = ({ match }) => {
                     </div>
                   </div>
 
+                  {data.countInStock > 0 && (
+                    <div className='list-group-item'>
+                      <div className='row'>
+                        <div className='col'>Qty</div>
+                        <div className='col'>
+                          <select
+                            className='form-select'
+                            as='select'
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(data.countInStock).keys()].map((k) => (
+                              <option key={k + 1} value={k + 1}>
+                                {k + 1}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className='list-group-item d-grid gap-2'>
                     <button
+                      onClick={addToCartHandler}
                       className='btn btn-outline-success my-3'
                       disabled={data?.countInStock === 0}
                     >
