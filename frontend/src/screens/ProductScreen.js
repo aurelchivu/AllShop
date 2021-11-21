@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Rating from '../components/Rating';
-import { useGetProductByIdQuery } from '../redux/features/products';
+import { useDispatch } from 'react-redux';
+import { useGetProductByIdQuery } from '../redux/features/productsSlice';
+import { addToCart } from '../redux/features/cartSlice';
 
 const ProductScreen = () => {
-
   const params = useParams();
   let navigate = useNavigate();
-  const { data: { data } = {}, isFetching } = useGetProductByIdQuery(
-    params.id
-  );
+  const { data: { data } = {}, isFetching } = useGetProductByIdQuery(params.id);
 
   const [qty, setQty] = useState(1);
 
+  const dispatch = useDispatch();
   const addToCartHandler = () => {
-    navigate(`/cart/${params.id}?qty=${qty}`);
+    // navigate(`/cart/${params.id}?qty=${qty}`);
+    dispatch(addToCart(data.id));
   };
 
   return (
@@ -65,7 +66,7 @@ const ProductScreen = () => {
                     </div>
                   </div>
 
-                  {data.countInStock > 0 && (
+                  {data?.countInStock > 0 && (
                     <div className='list-group-item'>
                       <div className='row'>
                         <div className='col'>Qty</div>
@@ -76,7 +77,7 @@ const ProductScreen = () => {
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
                           >
-                            {[...Array(data.countInStock).keys()].map((k) => (
+                            {[...Array(data?.countInStock).keys()].map((k) => (
                               <option key={k + 1} value={k + 1}>
                                 {k + 1}
                               </option>
@@ -90,7 +91,7 @@ const ProductScreen = () => {
                   <div className='list-group-item d-grid gap-2'>
                     <button
                       onClick={addToCartHandler}
-                      className='btn btn-outline-success my-3'
+                      className='btn btn-outline-success my-3 rounded-3'
                       disabled={data?.countInStock === 0}
                     >
                       Add to cart

@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getNumItems } from '../redux/features/cartSlice';
 
 const Navbar = () => {
   const signedIn = false;
+  const numItems = useSelector(getNumItems);
+  console.log(typeof numItems);
   return (
     <nav className='navbar sticky-top navbar-expand-lg navbar-light bg-light'>
       <div className='container-fluid'>
@@ -47,19 +51,19 @@ const Navbar = () => {
             ) : (
               <li className='nav-item px-1'>
                 <Link
-                  to='/signin'
+                  to='/login'
                   className='nav-link active'
                   aria-current='page'
                 >
                   <i className='fas fa-user'></i>
-                  {` SignIn`}
+                  {` LogIn`}
                 </Link>
               </li>
             )}
             <li className='nav-item px-1'>
               <Link to='/cart' className='nav-link active' aria-current='page'>
                 <i className='fas fa-shopping-cart'></i>
-                {` Cart`}
+                {numItems ? `  ${numItems}` : ` Cart`}
               </Link>
             </li>
           </ul>

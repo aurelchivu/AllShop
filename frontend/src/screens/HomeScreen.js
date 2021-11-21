@@ -1,6 +1,6 @@
 import React from 'react';
 import Product from '../components/Product';
-import { useGetAllProductsQuery } from '../redux/features/products';
+import { useGetAllProductsQuery } from '../redux/features/productsSlice';
 
 const HomeScreen = () => {
   const { data: { data } = [], isFetching } = useGetAllProductsQuery();
