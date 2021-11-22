@@ -8,10 +8,7 @@ import { Product } from '../models/Product.js';
 export const createProduct = asyncHandler(async (req, res) => {
   const product = await Product.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    data: product,
-  });
+  res.status(201).json(product);
 });
 
 // @desc      Get all products
@@ -20,11 +17,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 export const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.findAll();
 
-  res.status(200).json({
-    success: true,
-    count: products.length,
-    data: products,
-  });
+  res.status(200).json(products);
 });
 
 // @desc      Get product by ID
@@ -39,7 +32,7 @@ export const getProduct = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(200).json({ success: true, data: product });
+  res.status(200).json(product);
 });
 
 // @desc      Update product
@@ -56,7 +49,7 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 
   await product.update(req.body);
 
-  res.status(200).json({ success: true, data: product });
+  res.status(200).json(product);
 });
 
 // @desc      Delete product
@@ -73,5 +66,5 @@ export const deleteProduct = asyncHandler(async (req, res, next) => {
 
   await product.destroy();
 
-  res.status(200).json({ success: true, data: {} });
+  res.status(200).json({ message: 'Product removed' });
 });

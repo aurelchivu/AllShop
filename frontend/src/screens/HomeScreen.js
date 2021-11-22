@@ -3,14 +3,18 @@ import Product from '../components/Product';
 import { useGetAllProductsQuery } from '../redux/features/productsSlice';
 
 const HomeScreen = () => {
-  const { data: { data } = [], isFetching } = useGetAllProductsQuery();
+  const { data = [], isFetching } = useGetAllProductsQuery();
 
   return (
     <>
       <h2>Latest Products</h2>
       <div className='row'>
         {isFetching ? (
-          <h2>Loading...</h2>
+          <div className='d-flex justify-content-center'>
+            <div className='spinner-border' role='status'>
+              <span className='sr-only'>Loading...</span>
+            </div>
+          </div>
         ) : (
           data?.map((product) => (
             <div

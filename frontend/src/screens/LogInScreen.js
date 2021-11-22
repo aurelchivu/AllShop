@@ -36,9 +36,7 @@ const LogInScreen = () => {
                 <label className='form-check-label'> Remember me </label>
               </div>
               <div>
-                <Link to='/forgotpassword'>
-                  <p>Forgot password?</p>
-                </Link>
+                <Link to='/forgotpassword'>Forgot password?</Link>
               </div>
             </div>
             <div className='d-flex justify-content-around align-items-center'>

@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-// import { store } from '../store';
 import axios from 'axios';
 
 const initialState = {
@@ -9,14 +7,15 @@ const initialState = {
 
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
-  async (id, { getState }) => {
+  async (argm, { getState }) => {
+    const state = getState();
+    const { itemId, qty } = argm;
     try {
-      const state = getState();
       const { data } = await axios.get(
-        `http://localhost:5000/api/products/${id}`
+        `http://localhost:5000/api/products/${itemId}`
       );
       localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
-      return data;
+      return { ...data, qty };
     } catch (error) {
       console.log(error.message);
     }
@@ -32,10 +31,21 @@ export const cartSlice = createSlice({
     builder.addCase(addToCart.fulfilled, (state = initialState, action) => {
       const item = action.payload;
 
-      return {
-        ...state,
-        cartItems: [...state.cartItems, item],
-      };
+      const existItem = state.cartItems.find((x) => x.id === item.id);
+
+      if (existItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((x) =>
+            x.id === existItem.id ? item : x
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, item],
+        };
+      }
     });
   },
 });
@@ -47,3 +57,5 @@ export function getNumItems(state) {
   }
   return numItems;
 }
+
+// Add to local storage

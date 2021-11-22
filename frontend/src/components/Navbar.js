@@ -6,7 +6,6 @@ import { getNumItems } from '../redux/features/cartSlice';
 const Navbar = () => {
   const signedIn = false;
   const numItems = useSelector(getNumItems);
-  console.log(typeof numItems);
   return (
     <nav className='navbar sticky-top navbar-expand-lg navbar-light bg-light'>
       <div className='container-fluid'>
