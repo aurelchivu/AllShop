@@ -1,23 +1,20 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../redux/features/cartSlice';
+import { addToCart, removeFromCart } from '../redux/features/cartSlice';
 
 const CartScreen = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const removeFromCartHandler = () => {
-    console.log('remove');
-  };
+
   const checkoutHandler = () => {
-    console.log('Checkout');
     navigate('/login?redirect=shipping');
   };
 
   return (
     <div className='row'>
-      <div className='col-md-8'>
+      <div className='col-md-7'>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <div className='alert alert-secondary' role='alert'>
@@ -47,8 +44,7 @@ const CartScreen = () => {
                       onChange={(e) => {
                         const itemId = item.id;
                         const qty = Number(e.target.value);
-                        const argm = { itemId, qty };
-                        dispatch(addToCart(argm));
+                        dispatch(addToCart({ itemId, qty }));
                       }}
                     >
                       {[...Array(item?.countInStock).keys()].map((k) => (
@@ -59,7 +55,13 @@ const CartScreen = () => {
                     </select>
                   </div>
                   <div className='col-md-2'>
-                    <button onClick={removeFromCartHandler} className='btn'>
+                    <button
+                      onClick={() => {
+                        const itemId = item.id;
+                        dispatch(removeFromCart({ itemId }));
+                      }}
+                      className='btn'
+                    >
                       <i className='fas fa-trash-alt'></i>
                     </button>
                   </div>
@@ -69,6 +71,7 @@ const CartScreen = () => {
           </ul>
         )}
       </div>
+      <div className='col-md-1'></div>
       <div className='col-md-4'>
         <div className='card'>
           <ul className='list-group list-group-flush'>
@@ -103,7 +106,3 @@ const CartScreen = () => {
 };
 
 export default CartScreen;
-
-// qty won't work!!!
-// removeFromCartHandler
-// checkoutHandler

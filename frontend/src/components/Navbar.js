@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getNumItems } from '../redux/features/cartSlice';
 
 const Navbar = () => {
   const signedIn = false;
-  const numItems = useSelector(getNumItems);
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const numItems = cartItems.reduce((acc, item) => acc + Number(item.qty), 0);
+
   return (
     <nav className='navbar sticky-top navbar-expand-lg navbar-light bg-light'>
       <div className='container-fluid'>

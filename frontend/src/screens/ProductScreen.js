@@ -12,12 +12,12 @@ const ProductScreen = () => {
   const itemId = data.id;
 
   const [qty, setQty] = useState(1);
-  const argm = { itemId, qty };
+  // const argm = { itemId, qty };
 
   const dispatch = useDispatch();
   const addToCartHandler = () => {
     // navigate(`/cart/${params.id}?qty=${qty}`);
-    dispatch(addToCart(argm));
+    dispatch(addToCart({ itemId, qty }));
   };
 
   return (

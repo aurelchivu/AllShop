@@ -7,15 +7,27 @@ const initialState = {
 
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
-  async (argm, { getState }) => {
+  async ({ itemId, qty }, { getState }) => {
     const state = getState();
-    const { itemId, qty } = argm;
     try {
       const { data } = await axios.get(
         `http://localhost:5000/api/products/${itemId}`
       );
       localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
       return { ...data, qty };
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+);
+
+export const removeFromCart = createAsyncThunk(
+  'cart/removeFromCart',
+  async ({ itemId }, { getState }) => {
+    const state = getState();
+    try {
+      localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
+      return itemId;
     } catch (error) {
       console.log(error.message);
     }
@@ -47,15 +59,13 @@ export const cartSlice = createSlice({
         };
       }
     });
+    builder.addCase(removeFromCart.fulfilled, (state, action) => {
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((x) => x.id !== action.payload),
+      };
+    });
   },
 });
 
-export function getNumItems(state) {
-  let numItems = 0;
-  for (let id in state.cart.cartItems) {
-    numItems += state.cart.cartItems[id];
-  }
-  return numItems;
-}
-
-// Add to local storage
+// Add to local storage delay
