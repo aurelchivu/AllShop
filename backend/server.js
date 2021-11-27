@@ -47,9 +47,11 @@ try {
 
 // Route files
 import product from './routes/product.js';
+import user from './routes/user.js';
 
 const app = express();
 
+app.use(express.json());
 app.use(cors());
 
 // HTTP request logger middleware for node.js
@@ -59,6 +61,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mount routers
 app.use('/api/products', product);
+app.use('/api/users', user);
 
 app.get('/', (req, res) => {
   res.send('API is running...');

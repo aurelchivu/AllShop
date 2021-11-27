@@ -1,9 +1,8 @@
-import ErrorResponse from '../utils/ErrorResponse.js';
-import asyncHandler from '../middleware/async.js';
+import asyncHandler from 'express-async-handler';
 import { Product } from '../models/Product.js';
 
 // @desc      Create new product
-// @route     POST /api/v1/products
+// @route     POST /api/products
 // @access    Private/Admin
 export const createProduct = asyncHandler(async (req, res) => {
   const product = await Product.create(req.body);
@@ -12,7 +11,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 });
 
 // @desc      Get all products
-// @route     GET /api/v1/products
+// @route     GET /api/products
 // @access    Public
 export const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.findAll();
@@ -21,14 +20,14 @@ export const getProducts = asyncHandler(async (req, res) => {
 });
 
 // @desc      Get product by ID
-// @route     GET /api/v1/products/:id
+// @route     GET /api/products/:id
 // @access    Public
 export const getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findByPk(req.params.id);
 
   if (!product) {
     return next(
-      new ErrorResponse(`No product found with id of ${req.params.id}`, 404)
+      new Error(`No product found with id of ${req.params.id}`, 404)
     );
   }
 
@@ -36,14 +35,14 @@ export const getProduct = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Update product
-// @route     PUT /api/v1/products/:id
+// @route     PUT /api/products/:id
 // @access    Private/Admin
 export const updateProduct = asyncHandler(async (req, res, next) => {
   let product = await Product.findByPk(req.params.id);
 
   if (!product) {
     return next(
-      new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
+      new Error(`Product not found with id of ${req.params.id}`, 404)
     );
   }
 
@@ -53,14 +52,14 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Delete product
-// @route     DELETE /api/v1/products/:id
+// @route     DELETE /api/products/:id
 // @access    Private/Admin
 export const deleteProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findByPk(req.params.id);
 
   if (!product) {
     return next(
-      new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
+      new Error(`Product not found with id of ${req.params.id}`, 404)
     );
   }
 

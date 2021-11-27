@@ -27,7 +27,7 @@ const ProductScreen = () => {
       ) : (
         <>
           <Link to='/' className='btn btn-outline-success my-3'>
-            Go Back
+            Go To Main Page
           </Link>
           <div className='row'>
             <div className='col-md-6'>

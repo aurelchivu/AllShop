@@ -49,6 +49,23 @@ export const User = db.define(
   }
 );
 
+User.prototype.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
 User.hasMany(Order, { as: 'allOrders' });
 User.hasMany(Review, { as: 'allReviews' });
 
+// Ignore password hashing when update user
+  // function hashPassword(user) {
+  //   const password = user.password || user.attributes.password;
+  //   if (!user.changed('password')) return null;
+  //   return bcrypt.genSaltAsync(5).then((salt) =>
+  //     bcrypt.hashAsync(password, salt, null).then((hash) => {
+  //       user.password = hash; // eslint-disable-line
+  //     })
+  //   );
+  // }
+
+  // User.beforeCreate(hashPassword);
+  // User.beforeUpdate(hashPassword);
