@@ -8,8 +8,8 @@ const initialState = {
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ itemId, qty }, { getState }) => {
-    const state = getState();
     try {
+      const state = getState();
       const { data } = await axios.get(
         `http://localhost:5000/api/products/${itemId}`
       );
@@ -24,8 +24,8 @@ export const addToCart = createAsyncThunk(
 export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async ({ itemId }, { getState }) => {
-    const state = getState();
     try {
+      const state = getState();
       localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
       return itemId;
     } catch (error) {

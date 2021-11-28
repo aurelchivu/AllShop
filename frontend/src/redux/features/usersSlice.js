@@ -12,6 +12,17 @@ const initialState = {
     userInfo: null,
     error: null,
   },
+  userDetails: {
+    loading: false,
+    user: null,
+    error: null,
+  },
+  userUpdateProfile: {
+    loading: false,
+    success: false,
+    user: null,
+    error: null,
+  },
 };
 
 export const login = createAsyncThunk(
@@ -74,6 +85,69 @@ export const register = createAsyncThunk(
   }
 );
 
+export const getUserDetails = createAsyncThunk(
+  'users/details',
+  async (id, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+
+      const { userInfo } = state.users.userLogin;
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `http://localhost:5000/api/users/${id}`,
+        config
+      );
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
+);
+
+export const updateUserProfile = createAsyncThunk(
+  'users/update',
+  async (user, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+
+      const { userInfo } = state.users.userLogin;
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `http://localhost:5000/api/users/profile`,
+        user,
+        config
+      );
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
+);
+
 export const logout = () => () => {
   localStorage.removeItem('userInfo');
   localStorage.removeItem('cartItems');
@@ -86,7 +160,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
+    // Login reducers
     builder.addCase(login.pending, (state = initialState.userLogin) => {
       state.userLogin.loading = true;
     });
@@ -104,6 +178,7 @@ export const usersSlice = createSlice({
         state.userLogin.error = action.payload;
       }
     );
+    // Register reducers
     builder.addCase(register.pending, (state = initialState.userRegister) => {
       state.userRegister.loading = true;
     });
@@ -119,6 +194,49 @@ export const usersSlice = createSlice({
       (state = initialState.userRegister, action) => {
         state.userRegister.loading = false;
         state.userRegister.error = action.payload;
+      }
+    );
+    // User details reducers
+    builder.addCase(
+      getUserDetails.pending,
+      (state = initialState.userDetails) => {
+        state.userDetails.loading = true;
+      }
+    );
+    builder.addCase(
+      getUserDetails.fulfilled,
+      (state = initialState.userDetails, action) => {
+        state.userDetails.loading = false;
+        state.userDetails.user = action.payload;
+      }
+    );
+    builder.addCase(
+      getUserDetails.rejected,
+      (state = initialState.userDetails, action) => {
+        state.userDetails.loading = false;
+        state.userDetails.error = action.payload;
+      }
+    );
+    // User update reducers
+    builder.addCase(
+      updateUserProfile.pending,
+      (state = initialState.userUpdateProfile) => {
+        state.userUpdateProfile.loading = true;
+      }
+    );
+    builder.addCase(
+      updateUserProfile.fulfilled,
+      (state = initialState.userUpdateProfile, action) => {
+        state.userUpdateProfile.loading = false;
+        state.userUpdateProfile.success = true;
+        state.userUpdateProfile.user = action.payload;
+      }
+    );
+    builder.addCase(
+      updateUserProfile.rejected,
+      (state = initialState.userUpdateProfile, action) => {
+        state.userUpdateProfile.loading = false;
+        state.userUpdateProfile.error = action.payload;
       }
     );
   },

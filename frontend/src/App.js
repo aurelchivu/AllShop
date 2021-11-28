@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LogInScreen from './screens/LogInScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
   return (
@@ -17,8 +18,9 @@ const App = () => {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/products/:id' element={<ProductScreen />} />
           <Route path='/cart/*' element={<CartScreen />} />
-          <Route path='/register' element={<RegisterScreen />} />
           <Route path='/login' element={<LogInScreen />} />
+          <Route path='/profile' element={<ProfileScreen />} />
+          <Route path='/register' element={<RegisterScreen />} />
           <Route path='*' element={<h3>404 Not found.</h3>} />
         </Routes>
       </main>

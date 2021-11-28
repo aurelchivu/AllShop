@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, register } from '../redux/features/usersSlice';
+import { register } from '../redux/features/usersSlice';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
@@ -92,12 +92,10 @@ const RegisterScreen = () => {
               </button>
             </div>
             <div className='d-flex justify-content-center align-items-center my-3'>
-
-                {`Have an account? `}
-                <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-                  Login!
-                </Link>
-        
+              {`Have an account? `}
+              <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                Login!
+              </Link>
             </div>
           </form>
         </div>
