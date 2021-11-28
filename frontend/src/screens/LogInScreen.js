@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 const LogInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.users.userLogin);
@@ -32,9 +33,10 @@ const LogInScreen = () => {
     <div className='container py-5 h-100'>
       <div className='row d-flex justify-content-center h-100'>
         <div className='row d-flex justify-content-center h-100 col-md-7 col-lg-5 col-xl-5'>
+          <h2>Sign In</h2>
+          {error && <Message>{error}</Message>}
           {loading && <Loader />}
           <form onSubmit={submitHandler}>
-            {error && <Message>{error}</Message>}
             <div className='form-outline mb-4 '>
               <input
                 className='form-control form-control-lg'
@@ -77,14 +79,13 @@ const LogInScreen = () => {
                 Sign In
               </button>
             </div>
-            <div className='d-flex justify-content-around align-items-center my-3'>
-              <p>
-                <Link
-                  to={redirect ? `/register?redirect=${redirect}` : '/register'}
-                >
-                  <p>Don't have an account? Register here!</p>
-                </Link>
-              </p>
+            <div className='d-flex justify-content-center align-items-center my-3'>
+              Don't have an account?
+              <Link
+                to={redirect ? `/register?redirect=${redirect}` : '/register'}
+              >
+                Register here!
+              </Link>
             </div>
 
             <hr className='my-4'></hr>

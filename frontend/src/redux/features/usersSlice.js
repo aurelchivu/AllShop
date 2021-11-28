@@ -7,6 +7,11 @@ const initialState = {
     userInfo: null,
     error: null,
   },
+  userRegister: {
+    loading: false,
+    userInfo: null,
+    error: null,
+  },
 };
 
 export const login = createAsyncThunk(
@@ -37,6 +42,38 @@ export const login = createAsyncThunk(
   }
 );
 
+export const register = createAsyncThunk(
+  'users/register',
+  async ({ name, email, password }, { rejectWithValue, dispatch }) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        'http://localhost:5000/api/users',
+        { name, email, password },
+        config
+      );
+
+      localStorage.setItem('userInfo', JSON.stringify(data));
+
+      dispatch(login({ email, password }));
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  }
+);
+
 export const logout = () => () => {
   localStorage.removeItem('userInfo');
   localStorage.removeItem('cartItems');
@@ -50,16 +87,39 @@ export const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(login.pending, (state = initialState) => {
+    builder.addCase(login.pending, (state = initialState.userLogin) => {
       state.userLogin.loading = true;
     });
-    builder.addCase(login.fulfilled, (state = initialState, action) => {
-      state.userLogin.loading = false;
-      state.userLogin.userInfo = action.payload;
+    builder.addCase(
+      login.fulfilled,
+      (state = initialState.userLogin, action) => {
+        state.userLogin.loading = false;
+        state.userLogin.userInfo = action.payload;
+      }
+    );
+    builder.addCase(
+      login.rejected,
+      (state = initialState.userLogin, action) => {
+        state.userLogin.loading = false;
+        state.userLogin.error = action.payload;
+      }
+    );
+    builder.addCase(register.pending, (state = initialState.userRegister) => {
+      state.userRegister.loading = true;
     });
-    builder.addCase(login.rejected, (state = initialState, action) => {
-      state.userLogin.loading = false;
-      state.userLogin.error = action.payload;
-    });
+    builder.addCase(
+      register.fulfilled,
+      (state = initialState.userRegister, action) => {
+        state.userRegister.loading = false;
+        state.userRegister.userInfo = action.payload;
+      }
+    );
+    builder.addCase(
+      register.rejected,
+      (state = initialState.userRegister, action) => {
+        state.userRegister.loading = false;
+        state.userRegister.error = action.payload;
+      }
+    );
   },
 });

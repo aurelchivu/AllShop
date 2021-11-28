@@ -79,7 +79,7 @@ const Navbar = () => {
                   aria-current='page'
                 >
                   <i className='fas fa-user'></i>
-                  {` LogIn`}
+                  {` Sign In`}
                 </Link>
               </li>
             )}
