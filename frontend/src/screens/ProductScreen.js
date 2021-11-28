@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { useDispatch } from 'react-redux';
 import { useGetProductByIdQuery } from '../redux/features/productsSlice';
@@ -7,16 +7,13 @@ import { addToCart } from '../redux/features/cartSlice';
 
 const ProductScreen = () => {
   const params = useParams();
-  let navigate = useNavigate();
   const { data = {}, isFetching } = useGetProductByIdQuery(params.id);
   const itemId = data.id;
 
   const [qty, setQty] = useState(1);
-  // const argm = { itemId, qty };
 
   const dispatch = useDispatch();
   const addToCartHandler = () => {
-    // navigate(`/cart/${params.id}?qty=${qty}`);
     dispatch(addToCart({ itemId, qty }));
   };
 

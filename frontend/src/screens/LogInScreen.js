@@ -1,28 +1,58 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/features/usersSlice';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
 
 const LogInScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.users.userLogin);
+  const { loading, userInfo, error } = userLogin;
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, userInfo, redirect]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+
   return (
     <div className='container py-5 h-100'>
       <div className='row d-flex justify-content-center h-100'>
         <div className='row d-flex justify-content-center h-100 col-md-7 col-lg-5 col-xl-5'>
-          <form>
+          {loading && <Loader />}
+          <form onSubmit={submitHandler}>
+            {error && <Message>{error}</Message>}
             <div className='form-outline mb-4 '>
               <input
-                type='email'
-                id='form1Example13'
                 className='form-control form-control-lg'
+                type='email'
+                placeholder='Enter email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <label className='form-label'>Email address</label>
             </div>
 
             <div className='form-outline mb-4'>
               <input
-                type='password'
-                id='form1Example23'
                 className='form-control form-control-lg'
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <label className='form-label'>Password</label>
             </div>
 
             <div className='d-flex justify-content-around align-items-center mb-4'>
@@ -44,12 +74,14 @@ const LogInScreen = () => {
                 type='submit'
                 className='btn btn-outline-success my-3 rounded-3'
               >
-                Sign in
+                Sign In
               </button>
             </div>
             <div className='d-flex justify-content-around align-items-center my-3'>
               <p>
-                <Link to='/register'>
+                <Link
+                  to={redirect ? `/register?redirect=${redirect}` : '/register'}
+                >
                   <p>Don't have an account? Register here!</p>
                 </Link>
               </p>

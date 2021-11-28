@@ -7,10 +7,8 @@ import { User } from '../models/User.js';
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   const user = await User.findOne({ where: { email } });
-  console.log(user);
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -21,7 +19,7 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user.id),
     });
   } else {
-    res.status(401);
+    res.status(401).json({ message: 'Invalid email or password' });
     throw new Error('Invalid email or password');
   }
 });
@@ -35,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ where: { email } });
 
   if (userExists) {
-    res.status(400);
+    res.status(400).json({ message: 'User already exists' });
     throw new Error('User already exists');
   }
 
@@ -54,7 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user.id),
     });
   } else {
-    res.status(400);
+    res.status(400).json({ message: 'Invalid user data' });
     throw new Error('Invalid user data');
   }
 });
@@ -73,7 +71,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
     });
   } else {
-    res.status(404);
+    res.status(404).json({ message: 'User not found' });
     throw new Error('User not found');
   }
 });
@@ -101,7 +99,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       token: generateToken(updatedUser.id),
     });
   } else {
-    res.status(404);
+    res.status(404).json({ message: 'User not found' });
     throw new Error('User not found');
   }
 });
@@ -124,7 +122,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     await user.remove();
     res.json({ message: 'User removed' });
   } else {
-    res.status(404);
+    res.status(404).json({ message: 'User not found' });
     throw new Error('User not found');
   }
 });
@@ -138,7 +136,7 @@ const getUserById = asyncHandler(async (req, res) => {
   if (user) {
     res.json(user);
   } else {
-    res.status(404);
+    res.status(404).json({ message: 'User not found' });
     throw new Error('User not found');
   }
 });
@@ -163,7 +161,7 @@ const updateUser = asyncHandler(async (req, res) => {
       isAdmin: updatedUser.isAdmin,
     });
   } else {
-    res.status(404);
+    res.status(404).json({ message: 'User not found' });
     throw new Error('User not found');
   }
 });

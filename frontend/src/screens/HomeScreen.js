@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '../components/Product';
+import Loader from '../components/Loader';
 import { useGetAllProductsQuery } from '../redux/features/productsSlice';
 
 const HomeScreen = () => {
@@ -10,11 +11,7 @@ const HomeScreen = () => {
       <h2>Latest Products</h2>
       <div className='row'>
         {isFetching ? (
-          <div className='d-flex justify-content-center'>
-            <div className='spinner-border' role='status'>
-              <span className='sr-only'>Loading...</span>
-            </div>
-          </div>
+          <Loader />
         ) : (
           data?.map((product) => (
             <div

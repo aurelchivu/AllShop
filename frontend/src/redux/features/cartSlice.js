@@ -16,7 +16,7 @@ export const addToCart = createAsyncThunk(
       localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
       return { ...data, qty };
     } catch (error) {
-      console.log(error.message);
+      return error;
     }
   }
 );
@@ -29,7 +29,7 @@ export const removeFromCart = createAsyncThunk(
       localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
       return itemId;
     } catch (error) {
-      console.log(error.message);
+      return error;
     }
   }
 );
