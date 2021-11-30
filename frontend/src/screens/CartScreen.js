@@ -30,8 +30,8 @@ const CartScreen = () => {
           </Message>
         ) : (
           <ul className='list-group list-group-flush'>
-            {cartItems.map((item) => (
-              <li id={item.id} className='list-group-item'>
+            {cartItems.map((item, index) => (
+              <li key={index} className='list-group-item'>
                 <div className='row'>
                   <div className='col-md-2'>
                     <img
@@ -83,7 +83,7 @@ const CartScreen = () => {
       <div className='col-md-4'>
         <div className='card'>
           <ul className='list-group list-group-flush'>
-            <li key='subtotal' className='list-group-item'>
+            <li key={'subtotal'} className='list-group-item'>
               <h2>
                 Subtotal (
                 {cartItems.reduce((acc, item) => acc + Number(item.qty), 0)})
@@ -94,7 +94,7 @@ const CartScreen = () => {
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
             </li>
-            <li key='checkout' className='list-group-item'>
+            <li key={'checkout'} className='list-group-item'>
               <div className='d-flex justify-content-around align-items-center my-3'>
                 <button
                   type='button'

@@ -4,6 +4,7 @@ import axios from 'axios';
 const initialState = {
   cartItems: [],
   shippingAddress: {},
+  paymentMethod: '',
 };
 
 export const addToCart = createAsyncThunk(
@@ -95,7 +96,7 @@ export const cartSlice = createSlice({
     builder.addCase(savePaymentMethod.fulfilled, (state, action) => {
       return {
         ...state,
-        savePaymentMethod: action.payload,
+        paymentMethod: action.payload,
       };
     });
   },

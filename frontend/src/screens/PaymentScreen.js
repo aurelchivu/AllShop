@@ -32,30 +32,29 @@ const PaymentScreen = () => {
         <form onSubmit={submitHandler}>
           <legend>Select Method</legend>
 
-          <div class='form-check'>
+          <div className='form-check'>
             <input
-              class='form-check-input'
+              className='form-check-input'
               type='radio'
               name='paymentMethod'
               id='PayPal'
               value='Paypal'
-              checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label class='form-check-label' for='flexRadioDefault1'>
+            <label className='form-check-label' htmlFor='flexRadioDefault1'>
               Paypal or Credit Card
             </label>
           </div>
-          <div class='form-check'>
+          <div className='form-check'>
             <input
-              class='form-check-input'
+              className='form-check-input'
               type='radio'
               name='paymentMethod'
               id='Stripe'
               value='Stripe'
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label class='form-check-label' for='flexRadioDefault2'>
+            <label className='form-check-label' htmlFor='flexRadioDefault2'>
               Stripe
             </label>
           </div>

@@ -4,11 +4,12 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
-import RegisterScreen from './screens/RegisterScreen';
 import LogInScreen from './screens/LogInScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import PaymentScreen from './screens/PaymentScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import ProductScreen from './screens/ProductScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/login' element={<LogInScreen />} />
           <Route path='/profile' element={<ProfileScreen />} />
           <Route path='/payment' element={<PaymentScreen />} />
+          <Route path='/placeorder' element={<PlaceOrderScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/shipping' element={<ShippingScreen />} />
           <Route path='*' element={<h3>404 Not found.</h3>} />
