@@ -21,7 +21,25 @@ const preloadedState = {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
   },
-  users: { userLogin: { userInfo: userInfoFromStorage } },
+  users: {
+    userLogin: { userInfo: userInfoFromStorage },
+    userRegister: {
+      loading: false,
+      userInfo: null,
+      error: null,
+    },
+    userDetails: {
+      loading: false,
+      user: null,
+      error: null,
+    },
+    userUpdateProfile: {
+      loading: false,
+      success: false,
+      user: null,
+      error: null,
+    },
+  },
 };
 
 export const store = configureStore({

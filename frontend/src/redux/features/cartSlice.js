@@ -47,6 +47,14 @@ export const saveShippingAddress = createAsyncThunk(
   }
 );
 
+export const savePaymentMethod = createAsyncThunk(
+  'cart/savePaymentMethod',
+  async (data) => {
+    localStorage.setItem('paymentMethod', JSON.stringify(data));
+    return data;
+  }
+);
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -82,6 +90,12 @@ export const cartSlice = createSlice({
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    });
+    builder.addCase(savePaymentMethod.fulfilled, (state, action) => {
+      return {
+        ...state,
+        savePaymentMethod: action.payload,
       };
     });
   },

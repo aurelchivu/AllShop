@@ -249,4 +249,4 @@ export const usersSlice = createSlice({
 });
 
 // update user details after update profile
-// user reset reducer
+

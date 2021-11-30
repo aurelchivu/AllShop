@@ -48,9 +48,9 @@ const Navbar = () => {
           <ul className='navbar-nav ml-auto'>
             {userInfo ? (
               <>
-                <div class='dropdown'>
+                <div className='dropdown'>
                   <span
-                    class='btn dropdown-toggle'
+                    className='btn dropdown-toggle'
                     type='button'
                     id='dropdownMenuButton1'
                     data-bs-toggle='dropdown'
@@ -59,13 +59,13 @@ const Navbar = () => {
                     {userInfo.name.toUpperCase()}
                   </span>
                   <ul
-                    class='dropdown-menu dropdown-menu-dark'
+                    className='dropdown-menu dropdown-menu-dark'
                     aria-labelledby='navbarDarkDropdownMenuLink'
                   >
-                    <li class='dropdown-item'>
+                    <li className='dropdown-item'>
                       <Link to='/profile'>Profile</Link>
                     </li>
-                    <li class='dropdown-item' onClick={logoutHandler}>
+                    <li className='dropdown-item' onClick={logoutHandler}>
                       Logout
                     </li>
                   </ul>

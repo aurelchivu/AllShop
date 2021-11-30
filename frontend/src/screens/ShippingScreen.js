@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../redux/features/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const ShippingScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -34,6 +35,7 @@ const ShippingScreen = () => {
   return (
     <div className='row'>
       <div className='col-md-6 xs-12'>
+        <CheckoutSteps step1 step2/>
         <h2>Shipping</h2>
         <form onSubmit={submitHandler}>
           <div className='form-outline mb-4 '>
