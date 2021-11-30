@@ -3,17 +3,20 @@ import axios from 'axios';
 
 const initialState = {
   cartItems: [],
+  shippingAddress: {},
 };
 
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ itemId, qty }, { getState }) => {
     try {
-      const state = getState();
       const { data } = await axios.get(
         `http://localhost:5000/api/products/${itemId}`
       );
-      localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
+      localStorage.setItem(
+        'cartItems',
+        JSON.stringify(getState().cart.cartItems)
+      );
       return { ...data, qty };
     } catch (error) {
       return error;
@@ -25,12 +28,22 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async ({ itemId }, { getState }) => {
     try {
-      const state = getState();
-      localStorage.setItem('cartItems', JSON.stringify(state.cart.cartItems));
+      localStorage.setItem(
+        'cartItems',
+        JSON.stringify(getState().cart.cartItems)
+      );
       return itemId;
     } catch (error) {
       return error;
     }
+  }
+);
+
+export const saveShippingAddress = createAsyncThunk(
+  'cart/saveShippingAddress',
+  async (data) => {
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
+    return data;
   }
 );
 
@@ -63,6 +76,12 @@ export const cartSlice = createSlice({
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x.id !== action.payload),
+      };
+    });
+    builder.addCase(saveShippingAddress.fulfilled, (state, action) => {
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     });
   },

@@ -1,22 +1,29 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../redux/features/cartSlice';
 import Message from '../components/Message';
 
 const CartScreen = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirect = location.search
+    ? location.search.split('=')[1]
+    : '/shipping';
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    navigate(redirect ? `/login?redirect=${redirect}` : '/shipping');
   };
 
   return (
     <div className='row'>
       <div className='col-md-7'>
-        <h1>Shopping Cart</h1>
+        <h2>Shopping Cart</h2>
         {cartItems.length === 0 ? (
           <Message>
             Your cart is empty <Link to='/'>Go To Main Page</Link>

@@ -34,14 +34,14 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate('/login');
     } else {
-      if (!user) {
+      if (!user || !user.name) {
         dispatch(getUserDetails('profile'));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [userInfo, navigate, user, dispatch]);
+  }, [userInfo, navigate, user, dispatch, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -126,3 +126,4 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 // Custom error handler
+// Get updated user details after update profile

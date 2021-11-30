@@ -118,7 +118,7 @@ export const getUserDetails = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
   'users/update',
-  async (user, { rejectWithValue, getState }) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     try {
       const state = getState();
 
@@ -135,6 +135,12 @@ export const updateUserProfile = createAsyncThunk(
         user,
         config
       );
+
+      // dispatch({ type: 'users/update/fulfilled', payload: data });
+
+      dispatch({ type: 'users/login/fulfilled', payload: data });
+
+      localStorage.setItem('userInfo', JSON.stringify(data));
 
       return data;
     } catch (error) {
@@ -241,3 +247,6 @@ export const usersSlice = createSlice({
     );
   },
 });
+
+// update user details after update profile
+// user reset reducer

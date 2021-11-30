@@ -20,7 +20,7 @@ const LogInScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(redirect, { replace: true });
     }
   }, [navigate, userInfo, redirect]);
 
